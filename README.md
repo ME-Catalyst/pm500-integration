@@ -1,10 +1,9 @@
 # PowerMonitor 500 IIoT Integration Concept
 
 ## Concept Summary
-This repository explores an industrial IoT integration pattern for the Allen-Bradley PowerMonitor 500 energy meter. The concept envisions collecting power and energy data from the device over industrial communication protocols, translating it into IT-friendly payloads, and orchestrating analytics and visualization flows using modern automation tools.
+This repository explores an industrial IoT integration pattern for the Allen-Bradley PowerMonitor 500 energy meter. The integration concept envisions collecting power and energy data from the device over industrial communication protocols, translating it into IT-friendly payloads, and orchestrating analytics and visualization flows using modern automation tools.
 
 ## Current Repository State
-- The repository currently contains the concept document: `AB PM500 IIoT Integration Concept.pdf`.
 - No firmware, application code, or automation scripts have been implemented yet; the repo serves as a workspace for planning and documentation.
 
 ## High-Level Objectives
