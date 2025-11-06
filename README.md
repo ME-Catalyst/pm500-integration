@@ -22,3 +22,7 @@ This repository explores an industrial IoT integration pattern for the Allen-Bra
 
 ## Status Note
 This integration concept is exploratory and subject to change as additional validation, stakeholder feedback, and hardware testing refine the scope.
+
+## New Resources
+- [`infra/influxdb/`](infra/influxdb/) – Docker Compose assets and deployment guidance for InfluxDB OSS v2.
+- [`docs/telemetry-pipeline.md`](docs/telemetry-pipeline.md) – Instructions for wiring Node-RED, CODESYS, and Telegraf together and architectural advantages.
