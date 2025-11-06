@@ -1,0 +1,137 @@
+[
+    {
+        "id": "5a231d9ae387cf1a",
+        "type": "tab",
+        "label": "PM500 Assembly → MQTT",
+        "disabled": false,
+        "info": "Polls Assembly Instance 100 Attribute 3 every 500 ms and publishes to MQTT."
+    },
+    {
+        "id": "b5fce7012b988136",
+        "type": "inject",
+        "z": "5a231d9ae387cf1a",
+        "name": "500 ms poll",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "0.5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.5,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 140,
+        "wires": [
+            [
+                "f91fcfdcd7bd11c9"
+            ]
+        ]
+    },
+    {
+        "id": "f91fcfdcd7bd11c9",
+        "type": "function",
+        "z": "5a231d9ae387cf1a",
+        "name": "Prepare CIP read",
+        "func": "msg.payload = {\n    service: 'get_attribute_single',\n    objectType: 'assembly',\n    instance: 100,\n    attribute: 3\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 140,
+        "wires": [
+            [
+                "f9ea7856b9d6dfb9"
+            ]
+        ]
+    },
+    {
+        "id": "f9ea7856b9d6dfb9",
+        "type": "cip out",
+        "z": "5a231d9ae387cf1a",
+        "name": "Assembly 100 Attr 3",
+        "connection": "e6287b284c3f81ef",
+        "operation": "get_attribute_single",
+        "datatype": "buffer",
+        "topic": "assembly/100/attribute/3",
+        "x": 600,
+        "y": 140,
+        "wires": [
+            [
+                "2f5d464b3a9d0a53"
+            ]
+        ]
+    },
+    {
+        "id": "2f5d464b3a9d0a53",
+        "type": "function",
+        "z": "5a231d9ae387cf1a",
+        "name": "Format for MQTT",
+        "func": "const buf = Buffer.from(msg.payload);\nconst watts = buf.length >= 4 ? buf.readFloatLE(0) : 0;\nmsg.payload = JSON.stringify({\n    source: 'pm500',\n    attribute: 3,\n    watts,\n    timestamp: Date.now()\n});\nmsg.topic = 'pm500/assembly/100/attribute/3';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 140,
+        "wires": [
+            [
+                "e6db32216b7b6ef9"
+            ]
+        ]
+    },
+    {
+        "id": "e6db32216b7b6ef9",
+        "type": "mqtt out",
+        "z": "5a231d9ae387cf1a",
+        "name": "MQTT",
+        "topic": "",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c0cd958423bf7b4d",
+        "x": 1020,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "e6287b284c3f81ef",
+        "type": "cip-config",
+        "name": "PM500 Listen-Only",
+        "host": "192.168.1.50",
+        "port": 44818,
+        "slot": 0,
+        "timeout": 1000,
+        "listenOnly": true
+    },
+    {
+        "id": "c0cd958423bf7b4d",
+        "type": "mqtt-broker",
+        "name": "MQTT Broker",
+        "broker": "mqtt-broker",
+        "port": "1883",
+        "clientid": "pm500-node-red",
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    }
+]

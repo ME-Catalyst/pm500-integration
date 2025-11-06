@@ -1,0 +1,135 @@
+[
+    {
+        "id": "cb2a6780b3c9b2c3",
+        "type": "tab",
+        "label": "PM500 Assembly → Influx",
+        "disabled": false,
+        "info": "Polls Assembly Instance 100 Attribute 3 every 250 ms and writes to InfluxDB."
+    },
+    {
+        "id": "f1f7b97a1a6c0c87",
+        "type": "inject",
+        "z": "cb2a6780b3c9b2c3",
+        "name": "250 ms poll",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "0.25",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.25,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 120,
+        "wires": [
+            [
+                "9c9af3064e423af2"
+            ]
+        ]
+    },
+    {
+        "id": "9c9af3064e423af2",
+        "type": "function",
+        "z": "cb2a6780b3c9b2c3",
+        "name": "Prepare CIP read",
+        "func": "msg.payload = {\n    service: 'get_attribute_single',\n    objectType: 'assembly',\n    instance: 100,\n    attribute: 3\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 120,
+        "wires": [
+            [
+                "dfb1167f24f42949"
+            ]
+        ]
+    },
+    {
+        "id": "dfb1167f24f42949",
+        "type": "cip out",
+        "z": "cb2a6780b3c9b2c3",
+        "name": "Assembly 100 Attr 3",
+        "connection": "3a5e1ca78c2ca77d",
+        "operation": "get_attribute_single",
+        "datatype": "buffer",
+        "topic": "assembly/100/attribute/3",
+        "x": 600,
+        "y": 120,
+        "wires": [
+            [
+                "25c78cde724fdd9c"
+            ]
+        ]
+    },
+    {
+        "id": "25c78cde724fdd9c",
+        "type": "function",
+        "z": "cb2a6780b3c9b2c3",
+        "name": "Format for Influx",
+        "func": "const buf = Buffer.from(msg.payload);\n// Interpret the first 4 bytes as a 32-bit float. Adjust parsing as needed for your device.\nconst watts = buf.length >= 4 ? buf.readFloatLE(0) : 0;\nmsg.payload = [{\n    measurement: 'pm500_assembly',\n    fields: {\n        watts\n    },\n    tags: {\n        source: 'pm500',\n        attribute: '3'\n    }\n}];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 120,
+        "wires": [
+            [
+                "4c0b9bb0f6d96f86"
+            ]
+        ]
+    },
+    {
+        "id": "4c0b9bb0f6d96f86",
+        "type": "influxdb out",
+        "z": "cb2a6780b3c9b2c3",
+        "influxdb": "b4a9a230f0f7db6e",
+        "name": "InfluxDB",
+        "measurement": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "",
+        "retentionPolicyV18Flux": "",
+        "org": "",
+        "bucket": "",
+        "x": 1030,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "3a5e1ca78c2ca77d",
+        "type": "cip-config",
+        "name": "PM500 Listen-Only",
+        "host": "192.168.1.50",
+        "port": 44818,
+        "slot": 0,
+        "timeout": 1000,
+        "listenOnly": true
+    },
+    {
+        "id": "b4a9a230f0f7db6e",
+        "type": "influxdb",
+        "hostname": "influxdb",
+        "port": "8086",
+        "protocol": "http",
+        "database": "pm500",
+        "name": "InfluxDB",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "http://influxdb:8086",
+        "rejectUnauthorized": true,
+        "credentials": {
+            "token": "",
+            "username": "",
+            "password": ""
+        }
+    }
+]
