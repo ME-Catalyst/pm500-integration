@@ -1,0 +1,5 @@
+Channel,IEC Variable,Data Type,Description
+OutputWord0,PLC_PRG.PM500_Control,WORD,Control command bits
+OutputWord1,PLC_PRG.PM500_ActiveSetpoint,WORD,Active power setpoint scaled x10
+OutputWord2,PLC_PRG.PM500_ReactiveSetpoint,WORD,Reactive power setpoint scaled x10
+OutputWord3,PLC_PRG.PM500_ControlReserve,WORD,Reserved word for future expansion
