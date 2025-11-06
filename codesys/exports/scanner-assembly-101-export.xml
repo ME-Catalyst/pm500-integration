@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package Version="3.5.19.0">
+  <DeviceConfiguration>
+    <Device Name="EtherNetIP_Scanner" Type="3S.CoDeSys.EthernetIPScanner">
+      <Parameter Name="DeviceName" Value="PM500_Scanner" />
+      <ChildDevices>
+        <Device Name="PM500_Adapter" Type="3S.CoDeSys.EthernetIPScanner.Adapter">
+          <Parameter Name="IPAddress" Value="192.168.1.10" />
+          <Connections>
+            <Connection Name="PM500_Input_101" Type="ExclusiveOwner">
+              <Parameter Name="InputAssembly" Value="101" />
+              <Parameter Name="OutputAssembly" Value="0" />
+              <Parameter Name="ConfigurationAssembly" Value="0" />
+              <Parameter Name="InputSize" Value="8" />
+              <Parameter Name="OutputSize" Value="0" />
+              <Parameter Name="RPIMilliseconds" Value="50" />
+              <Parameter Name="TransportClass" Value="Class1" />
+              <Tags>
+                <Tag Name="InputWord0" DataType="WORD" Offset="0" Comment="Device status flags" />
+                <Tag Name="InputWord1" DataType="WORD" Offset="2" Comment="Active power (scaled x10)" />
+                <Tag Name="InputWord2" DataType="WORD" Offset="4" Comment="Reactive power (scaled x10)" />
+                <Tag Name="InputWord3" DataType="WORD" Offset="6" Comment="Energy accumulator high word" />
+              </Tags>
+            </Connection>
+          </Connections>
+        </Device>
+      </ChildDevices>
+    </Device>
+  </DeviceConfiguration>
+</Package>

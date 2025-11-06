@@ -1,0 +1,12 @@
+Channel,IEC Variable,Data Type,Description
+InputWord0,PLC_PRG.PM500_Status,WORD,Device status flags (bit-coded)
+InputWord1,PLC_PRG.PM500_ActivePower,WORD,Active power feedback scaled x10
+InputWord2,PLC_PRG.PM500_ReactivePower,WORD,Reactive power feedback scaled x10
+InputWord3,PLC_PRG.PM500_EnergyHi,WORD,High word of cumulative energy counter
+OutputWord0,PLC_PRG.PM500_Control,WORD,Control command bits
+OutputWord1,PLC_PRG.PM500_ActiveSetpoint,WORD,Active power setpoint scaled x10
+OutputWord2,PLC_PRG.PM500_ReactiveSetpoint,WORD,Reactive power setpoint scaled x10
+OutputWord3,PLC_PRG.PM500_ControlReserve,WORD,Reserved word for future expansion
+ConfigWord0,PLC_PRG.PM500_ScalingMode,WORD,Scaling selector parameter
+ConfigWord1,PLC_PRG.PM500_DemandInterval,WORD,Demand interval in seconds
+ConfigWord2,PLC_PRG.PM500_FirmwareRev,WORD,Firmware revision reported by the adapter

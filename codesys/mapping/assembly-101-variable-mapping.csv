@@ -1,0 +1,5 @@
+Channel,IEC Variable,Data Type,Description
+InputWord0,PLC_PRG.PM500_Status,WORD,Device status flags (bit-coded)
+InputWord1,PLC_PRG.PM500_ActivePower,WORD,Active power feedback scaled x10
+InputWord2,PLC_PRG.PM500_ReactivePower,WORD,Reactive power feedback scaled x10
+InputWord3,PLC_PRG.PM500_EnergyHi,WORD,High word of cumulative energy counter
