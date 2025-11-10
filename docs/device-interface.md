@@ -16,6 +16,10 @@
 - **Implicit Messaging** for real-time cyclic data exchange.
 - **UCMM Explicit Messaging** for on-demand parameter access and configuration.
 
+![Sequence diagram of telemetry ingestion and command handling across the device, gateway, broker, and cloud.](diagrams/integration/integration-sequence.svg)
+
+*Figure 1: The integration sequence clarifies the telemetry and command loop so interface designers know where timing and protocol translations occur.*
+
 ## Configuration Restrictions
 - All write operations must be performed via **Modbus TCP**.
 - Only a single Modbus TCP socket may be open at any given time.

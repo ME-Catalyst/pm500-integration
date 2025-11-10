@@ -2,6 +2,10 @@
 
 This guide describes how the PM500 edge stack can forward measurements from PLC assets through Node-RED and CODESYS into InfluxDB OSS v2 via Telegraf.
 
+![End-to-end telemetry data flow from field sources through the edge pipeline and MQTT distribution.](diagrams/data-flow/telemetry-data-flow.svg)
+
+*Figure 1: The telemetry data flow diagram clarifies how signals progress from sensors and PLCs into the MQTT broker and downstream consumers, helping teams validate coverage and buffering strategies.*
+
 ## Repository Assets
 
 - Node-RED reference flows in [../node-red/flows/](../node-red/flows/) implement the polling, normalization, and export patterns described in this guide.

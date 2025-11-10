@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="320" viewBox="0 0 820 320" role="img" aria-labelledby="title desc">
+  <title id="title">Telemetry Data Flow</title>
+  <desc id="desc">Illustrates how measurements travel from the factory floor through the edge stack into cloud consumers.</desc>
+  <style>
+    .node { fill: #ffffff; stroke: #1f2937; stroke-width: 2; rx: 10; ry: 10; }
+    .group { fill: #f3f4f6; stroke: #9ca3af; stroke-width: 2; }
+    .label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 15px; fill: #111827; }
+    .arrow { stroke: #059669; stroke-width: 2.5; marker-end: url(#arrowhead); }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto" fill="#059669">
+      <polygon points="0 0, 10 3.5, 0 7" />
+    </marker>
+  </defs>
+  <rect class="group" x="30" y="40" width="200" height="240" />
+  <text class="label" x="130" y="70" text-anchor="middle">Field Sources</text>
+  <rect class="node" x="60" y="110" width="140" height="60" />
+  <text class="label" x="130" y="145" text-anchor="middle">Sensors</text>
+  <rect class="node" x="60" y="200" width="140" height="60" />
+  <text class="label" x="130" y="235" text-anchor="middle">PLCs</text>
+  <rect class="group" x="270" y="40" width="220" height="240" />
+  <text class="label" x="380" y="70" text-anchor="middle">Edge Processing</text>
+  <rect class="node" x="300" y="110" width="160" height="60" />
+  <text class="label" x="380" y="145" text-anchor="middle">PM500 Gateway</text>
+  <rect class="node" x="300" y="200" width="160" height="60" />
+  <text class="label" x="380" y="235" text-anchor="middle">Edge Buffer</text>
+  <rect class="group" x="520" y="40" width="260" height="240" />
+  <text class="label" x="650" y="70" text-anchor="middle">Distribution</text>
+  <rect class="node" x="550" y="110" width="200" height="60" />
+  <text class="label" x="650" y="140" text-anchor="middle">Sparkplug Encoder &amp; MQTT</text>
+  <rect class="node" x="540" y="200" width="100" height="60" />
+  <text class="label" x="590" y="235" text-anchor="middle">Storage</text>
+  <rect class="node" x="660" y="200" width="100" height="60" />
+  <text class="label" x="710" y="235" text-anchor="middle">Dashboards</text>
+  <line class="arrow" x1="200" y1="140" x2="300" y2="140" />
+  <line class="arrow" x1="200" y1="230" x2="300" y2="230" />
+  <line class="arrow" x1="460" y1="140" x2="550" y2="140" />
+  <line class="arrow" x1="460" y1="230" x2="540" y2="230" />
+  <line class="arrow" x1="650" y1="170" x2="590" y2="200" />
+  <line class="arrow" x1="650" y1="170" x2="710" y2="200" />
+</svg>
