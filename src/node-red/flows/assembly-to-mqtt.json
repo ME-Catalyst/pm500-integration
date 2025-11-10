@@ -4,7 +4,17 @@
         "type": "tab",
         "label": "PM500 Assembly → MQTT",
         "disabled": false,
-        "info": "Polls Assembly Instance 100 Attribute 3 every 500 ms and publishes to MQTT."
+        "info": "Polls Assembly Instance 100 Attribute 3 every 500 ms and publishes to MQTT.\nUsage: Import into Node-RED, configure the CIP connection, and update the MQTT out node credentials/topic as needed.\nDepends on node-red-contrib-cip-ethernet-ip and Node-RED's built-in MQTT nodes."
+    },
+    {
+        "id": "f64c6b160fb6a5d0",
+        "type": "comment",
+        "z": "5a231d9ae387cf1a",
+        "name": "PM500 assembly read to MQTT",
+        "info": "Polls assembly 100 attribute 3 twice per second, converts binary watts reading to JSON, and publishes on `pm500/assembly/100/attribute/3`. Ensure MQTT broker credentials are set on the downstream MQTT out node before deploying.",
+        "x": 340,
+        "y": 80,
+        "wires": []
     },
     {
         "id": "b5fce7012b988136",
@@ -36,12 +46,13 @@
         "type": "function",
         "z": "5a231d9ae387cf1a",
         "name": "Prepare CIP read",
-        "func": "msg.payload = {\n    service: 'get_attribute_single',\n    objectType: 'assembly',\n    instance: 100,\n    attribute: 3\n};\nreturn msg;",
+        "func": "// Input: timer trigger message.\n// Output: CIP request describing assembly instance 100 attribute 3.\nmsg.payload = {\n    service: 'get_attribute_single',\n    objectType: 'assembly',\n    instance: 100,\n    attribute: 3\n};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
+        "info": "Builds the envelope expected by node-red-contrib-cip-ethernet-ip for polling the PM500 assembly attribute."
         "x": 360,
         "y": 140,
         "wires": [
@@ -59,6 +70,7 @@
         "operation": "get_attribute_single",
         "datatype": "buffer",
         "topic": "assembly/100/attribute/3",
+        "info": "Uses the configured CIP connection to fetch the binary payload from the PM500. Requires node-red-contrib-cip-ethernet-ip.",
         "x": 600,
         "y": 140,
         "wires": [
@@ -72,12 +84,13 @@
         "type": "function",
         "z": "5a231d9ae387cf1a",
         "name": "Format for MQTT",
-        "func": "const buf = Buffer.from(msg.payload);\nconst watts = buf.length >= 4 ? buf.readFloatLE(0) : 0;\nmsg.payload = JSON.stringify({\n    source: 'pm500',\n    attribute: 3,\n    watts,\n    timestamp: Date.now()\n});\nmsg.topic = 'pm500/assembly/100/attribute/3';\nreturn msg;",
+        "func": "// Input: Buffer payload returned from the CIP out node.\n// Output: JSON string ready for MQTT publish plus topic metadata.\nconst buf = Buffer.from(msg.payload);\nconst watts = buf.length >= 4 ? buf.readFloatLE(0) : 0;\nmsg.payload = JSON.stringify({\n    source: 'pm500',\n    attribute: 3,\n    watts,\n    timestamp: Date.now()\n});\nmsg.topic = 'pm500/assembly/100/attribute/3';\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
+        "info": "Converts the binary watts reading into a JSON payload suitable for MQTT subscribers."
         "x": 820,
         "y": 140,
         "wires": [

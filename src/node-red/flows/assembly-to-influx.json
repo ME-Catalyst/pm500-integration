@@ -4,7 +4,17 @@
         "type": "tab",
         "label": "PM500 Assembly → Influx",
         "disabled": false,
-        "info": "Polls Assembly Instance 100 Attribute 3 every 250 ms and writes to InfluxDB."
+        "info": "Polls Assembly Instance 100 Attribute 3 every 250 ms and writes to InfluxDB.\nUsage: Import into Node-RED and configure CIP connection/Influx credentials before enabling.\nDepends on node-red-contrib-cip-ethernet-ip and node-red-contrib-influxdb nodes."
+    },
+    {
+        "id": "a6a78d5a3c8f4d12",
+        "type": "comment",
+        "z": "cb2a6780b3c9b2c3",
+        "name": "PM500 assembly read to InfluxDB",
+        "info": "Triggers a CIP poll every 250 ms, translates the binary payload into watts, and writes to InfluxDB measurement `pm500_assembly`. Ensure the InfluxDB node is configured with authentication tokens produced by docker-compose stack.",
+        "x": 360,
+        "y": 60,
+        "wires": []
     },
     {
         "id": "f1f7b97a1a6c0c87",
@@ -36,12 +46,13 @@
         "type": "function",
         "z": "cb2a6780b3c9b2c3",
         "name": "Prepare CIP read",
-        "func": "msg.payload = {\n    service: 'get_attribute_single',\n    objectType: 'assembly',\n    instance: 100,\n    attribute: 3\n};\nreturn msg;",
+        "func": "// Input: timestamp trigger from the inject node.\n// Output: CIP get_attribute_single request targeting assembly instance 100 attribute 3.\nmsg.payload = {\n    service: 'get_attribute_single',\n    objectType: 'assembly',\n    instance: 100,\n    attribute: 3\n};\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
+        "info": "Constructs the message envelope expected by node-red-contrib-cip-ethernet-ip for a single attribute read."
         "x": 360,
         "y": 120,
         "wires": [
@@ -59,6 +70,7 @@
         "operation": "get_attribute_single",
         "datatype": "buffer",
         "topic": "assembly/100/attribute/3",
+        "info": "Executes the CIP read using a configured connection resource; requires node-red-contrib-cip-ethernet-ip with credentials for the PM500 device.",
         "x": 600,
         "y": 120,
         "wires": [
@@ -72,12 +84,13 @@
         "type": "function",
         "z": "cb2a6780b3c9b2c3",
         "name": "Format for Influx",
-        "func": "const buf = Buffer.from(msg.payload);\n// Interpret the first 4 bytes as a 32-bit float. Adjust parsing as needed for your device.\nconst watts = buf.length >= 4 ? buf.readFloatLE(0) : 0;\nmsg.payload = [{\n    measurement: 'pm500_assembly',\n    fields: {\n        watts\n    },\n    tags: {\n        source: 'pm500',\n        attribute: '3'\n    }\n}];\nreturn msg;",
+        "func": "// Input: Buffer payload from CIP node representing IEEE-754 float watts.\n// Output: Array of InfluxDB line protocol objects expected by node-red-contrib-influxdb.\nconst buf = Buffer.from(msg.payload);\n// Interpret the first 4 bytes as a 32-bit float. Adjust parsing as needed for your device.\nconst watts = buf.length >= 4 ? buf.readFloatLE(0) : 0;\nmsg.payload = [{\n    measurement: 'pm500_assembly',\n    fields: {\n        watts\n    },\n    tags: {\n        source: 'pm500',\n        attribute: '3'\n    }\n}];\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
+        "info": "Parses the binary response buffer and shapes the payload for the InfluxDB write node using measurement `pm500_assembly`."
         "x": 820,
         "y": 120,
         "wires": [
