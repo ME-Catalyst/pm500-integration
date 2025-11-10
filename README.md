@@ -49,6 +49,9 @@ The integration concept remains exploratory and will evolve as hardware validati
 ## Documentation Language
 - All repository content follows **U.S. English** spelling conventions (for example, "color" rather than "colour") to keep terminology consistent across engineering and operations teams.
 
+## License
+- This project is distributed under the [MIT License](LICENSE.md).
+
 ## Recent Updates
 - [`docs/roadmap.md`](docs/roadmap.md) consolidates the phase breakdown, status indicators, and immediate next actions.
 - [`node-red/flows/`](node-red/flows/) now includes paired MQTT and InfluxDB export examples with listen-only polling defaults.
