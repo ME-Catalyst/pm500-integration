@@ -1,0 +1,50 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Run automated tests
+        run: pytest
+
+      - name: Lint YAML files
+        run: yamllint src tests .github/workflows
+
+      - name: Validate Node-RED flows against schema
+        run: check-jsonschema --schemafile tests/schemas/node_red_flow.schema.json src/node-red/flows/*.json
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.7
+
+      - name: Check Terraform formatting
+        working-directory: src/cloud/aws-iot
+        run: terraform fmt -check
+
+      - name: Terraform validate
+        working-directory: src/cloud/aws-iot
+        run: |
+          terraform init -backend=false
+          terraform validate

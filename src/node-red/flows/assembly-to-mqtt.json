@@ -52,7 +52,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "info": "Builds the envelope expected by node-red-contrib-cip-ethernet-ip for polling the PM500 assembly attribute."
+        "info": "Builds the envelope expected by node-red-contrib-cip-ethernet-ip for polling the PM500 assembly attribute.",
         "x": 360,
         "y": 140,
         "wires": [
@@ -90,7 +90,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "info": "Converts the binary watts reading into a JSON payload suitable for MQTT subscribers."
+        "info": "Converts the binary watts reading into a JSON payload suitable for MQTT subscribers.",
         "x": 820,
         "y": 140,
         "wires": [

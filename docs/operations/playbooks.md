@@ -8,6 +8,17 @@ This playbook consolidates runbook procedures for monitoring EtherNet/IP listene
 - Node-RED flows in [../../src/node-red/flows/](../../src/node-red/flows/) provide the polling topologies referenced by the listen-only validation steps below.
 - InfluxDB deployment notes under [../../src/infrastructure/influxdb/](../../src/infrastructure/influxdb/) describe the telemetry targets used in heartbeat monitoring procedures.
 
+## Release Checklist
+
+- [ ] `pytest` – verify the automated flow and infrastructure guards in [`tests/`](../../tests/).
+- [ ] `yamllint src tests .github/workflows` – confirm YAML assets use the agreed formatting profile.
+- [ ] `check-jsonschema --schemafile tests/schemas/node_red_flow.schema.json src/node-red/flows/*.json` – ensure Node-RED exports retain required metadata.
+- [ ] From [`src/cloud/aws-iot/`](../../src/cloud/aws-iot/):
+  - [ ] `terraform fmt -check`
+  - [ ] `terraform init -backend=false`
+  - [ ] `terraform validate`
+- [ ] Confirm the CI workflow in [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml) reports a green build for the release commit.
+
 ## Validating Listen-Only Subscriptions
 
 1. **Baseline the producer**
