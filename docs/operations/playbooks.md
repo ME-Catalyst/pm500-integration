@@ -2,6 +2,12 @@
 
 This playbook consolidates runbook procedures for monitoring EtherNet/IP listener configurations, coordinating Modbus diagnostics, and troubleshooting both the CODESYS and Node-RED integration paths. Each section is designed for shift operators and on-call engineers who need concise, repeatable steps during routine validation or incident response.
 
+## Repository Integration Points
+
+- Review the roadmap in [../roadmap.md](../roadmap.md) before runbook updates to confirm which phases are production supported.
+- Node-RED flows in [../../node-red/flows/](../../node-red/flows/) provide the polling topologies referenced by the listen-only validation steps below.
+- InfluxDB deployment notes under [../../infra/influxdb/](../../infra/influxdb/) describe the telemetry targets used in heartbeat monitoring procedures.
+
 ## Validating Listen-Only Subscriptions
 
 1. **Baseline the producer**

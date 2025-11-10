@@ -2,6 +2,12 @@
 
 This guide describes how the PM500 edge stack can forward measurements from PLC assets through Node-RED and CODESYS into InfluxDB OSS v2 via Telegraf.
 
+## Repository Assets
+
+- Node-RED reference flows in [../node-red/flows/](../node-red/flows/) implement the polling, normalization, and export patterns described in this guide.
+- The InfluxDB OSS v2 stack under [../infra/influxdb/](../infra/influxdb/) provides the target data store for the examples below and can be paired with Telegraf.
+- AWS IoT Core provisioning snippets in [../cloud/aws-iot/](../cloud/aws-iot/) supply MQTT endpoints for the Sparkplug B publishing options discussed in later sections.
+
 ## Node-RED write configuration
 
 1. **Install the InfluxDB output node** (`node-red-contrib-influxdb`) on the Node-RED runtime co-located with Telegraf.
@@ -61,3 +67,9 @@ CODESYS-based PLCs can forward PM500 data points into Telegraf by leveraging two
 - **VLAN isolation:** Segmenting PLCs, Node-RED, Telegraf, and InfluxDB into dedicated VLANs limits east-west traffic exposure and creates clear trust boundaries between OT and IT networks.
 
 Combining these components yields a resilient pipeline that scales from lab environments to brownfield retrofits while honoring industrial security practices.
+
+## Next Steps
+
+- Pair the InfluxDB stack with Grafana or Chronograf dashboards that highlight power factor, phase current balance, and heartbeat integrity.
+- Document Telegraf processor and aggregator chains once KPIs are finalized to ensure edge-side filtering is reproducible.
+- Capture export samples for both Sparkplug B and AWS IoT Core to validate schema alignment before production rollout.
