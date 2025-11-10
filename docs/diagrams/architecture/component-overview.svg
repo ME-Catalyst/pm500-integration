@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" viewBox="0 0 760 360" role="img" aria-labelledby="title desc">
+  <title id="title">PM500 Integration Component Overview</title>
+  <desc id="desc">Shows how field devices, the edge gateway, and cloud workloads exchange telemetry.</desc>
+  <style>
+    .layer { fill: #f3f4f6; stroke: #9ca3af; stroke-width: 2; }
+    .component { fill: #ffffff; stroke: #1f2937; stroke-width: 2; rx: 8; ry: 8; }
+    .label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; fill: #111827; }
+    .arrow { stroke: #2563eb; stroke-width: 2.5; marker-end: url(#arrowhead); }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto" fill="#2563eb">
+      <polygon points="0 0, 10 3.5, 0 7" />
+    </marker>
+  </defs>
+  <rect class="layer" x="20" y="40" width="220" height="280" />
+  <text class="label" x="130" y="70" text-anchor="middle">Field Layer</text>
+  <rect class="component" x="60" y="110" width="140" height="60" />
+  <text class="label" x="130" y="145" text-anchor="middle">PLC &amp; Sensors</text>
+  <rect class="component" x="60" y="210" width="140" height="60" />
+  <text class="label" x="130" y="245" text-anchor="middle">PowerMonitor 500</text>
+  <rect class="layer" x="270" y="40" width="220" height="280" />
+  <text class="label" x="380" y="70" text-anchor="middle">Edge Layer</text>
+  <rect class="component" x="310" y="110" width="140" height="60" />
+  <text class="label" x="380" y="140" text-anchor="middle">Edge Gateway</text>
+  <rect class="component" x="310" y="190" width="140" height="60" />
+  <text class="label" x="380" y="220" text-anchor="middle">Node-RED Runtime</text>
+  <rect class="component" x="310" y="270" width="140" height="60" />
+  <text class="label" x="380" y="300" text-anchor="middle">Sparkplug Encoder</text>
+  <rect class="layer" x="520" y="40" width="220" height="280" />
+  <text class="label" x="630" y="70" text-anchor="middle">Cloud Layer</text>
+  <rect class="component" x="560" y="110" width="140" height="60" />
+  <text class="label" x="630" y="140" text-anchor="middle">MQTT Broker</text>
+  <rect class="component" x="560" y="190" width="140" height="60" />
+  <text class="label" x="630" y="220" text-anchor="middle">Time-Series Store</text>
+  <rect class="component" x="560" y="270" width="140" height="60" />
+  <text class="label" x="630" y="300" text-anchor="middle">Apps &amp; Analytics</text>
+  <line class="arrow" x1="200" y1="140" x2="310" y2="140" />
+  <line class="arrow" x1="200" y1="240" x2="310" y2="200" />
+  <line class="arrow" x1="200" y1="240" x2="310" y2="300" />
+  <line class="arrow" x1="450" y1="140" x2="560" y2="140" />
+  <line class="arrow" x1="450" y1="220" x2="560" y2="200" />
+  <line class="arrow" x1="450" y1="300" x2="560" y2="300" />
+</svg>

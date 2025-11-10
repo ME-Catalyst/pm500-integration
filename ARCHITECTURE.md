@@ -1,8 +1,10 @@
 # Solution Architecture Narrative
 
-This document explains how the PowerMonitor 500 integration concept is constructed across edge, platform, and enterprise layer
-s. It is intended for architects and senior engineers who need to understand the decisions behind the reference implementation
- and the seams available for customization.
+This document explains how the PowerMonitor 500 integration concept is constructed across edge, platform, and enterprise layers. It is intended for architects and senior engineers who need to understand the decisions behind the reference implementation and the seams available for customization.
+
+![Component overview of the PM500 integration stack showing field, edge, and cloud tiers.](docs/diagrams/architecture/component-overview.svg)
+
+*Figure 1: The component overview highlights how field assets feed the edge gateway, which in turn packages telemetry for cloud storage and applications. Use it to identify where to extend or harden the platform.*
 
 ## Logical View
 
