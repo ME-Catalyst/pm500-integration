@@ -1,4 +1,9 @@
 {
+  "_documentation": {
+    "summary": "Sample PM500 telemetry payload illustrating voltage, current, and energy fields.",
+    "usage": "Reference for shaping MQTT or REST payloads when integrating with downstream analytics.",
+    "depends": "Consumers should ignore unknown fields (like _documentation) when parsing the sample."
+  },
   "device": "PM500-Lab",
   "timestamp": "2024-01-15T12:00:00Z",
   "measurements": {

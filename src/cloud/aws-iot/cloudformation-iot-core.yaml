@@ -1,3 +1,12 @@
+# -----------------------------------------------------------------------------
+# File: cloudformation-iot-core.yaml
+# Summary: CloudFormation template that provisions a PM500-focused IoT Thing,
+#          certificate, and least-privilege policy for AWS IoT Core.
+# Usage:   Deploy with `aws cloudformation deploy --template-file cloudformation-iot-core.yaml`
+#          after setting template parameters (ThingName, PolicyName, AllowedTopicArns).
+# Depends: Requires AWS account access with IoT Core permissions and AWS CLI or
+#          CloudFormation console to launch the stack.
+# -----------------------------------------------------------------------------
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Minimal AWS IoT Core setup for a PM500 device with least-privilege policy.
 

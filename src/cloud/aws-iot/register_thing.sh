@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Minimal AWS CLI workflow for provisioning an IoT thing and certificate.
-# Requires awscli v2 with credentials authorized for the following actions:
-#   iot:CreateThing, iot:DescribeEndpoint, iot:CreateKeysAndCertificate,
-#   iot:CreatePolicy, iot:AttachPolicy, iot:AttachThingPrincipal
-# Ensure that the policy documents restrict access to explicit client IDs and topics.
+# -----------------------------------------------------------------------------
+# Script: register_thing.sh
+# Summary: Automates creation of a PM500 IoT Thing, certificates, and a
+#          least-privilege MQTT policy using the AWS CLI.
+# Usage:   Run `THING_NAME=<name> POLICY_NAME=<name> ./register_thing.sh`
+#          to create artifacts in ./certs (override via OUTPUT_DIR).
+# Depends: awscli v2, jq, and credentials permitted to call IoT APIs including
+#          CreateThing, CreateKeysAndCertificate, CreatePolicy, AttachPolicy,
+#          AttachThingPrincipal, and DescribeEndpoint.
+# -----------------------------------------------------------------------------
 
 THING_NAME=${THING_NAME:-pm500-demo-thing}
 POLICY_NAME=${POLICY_NAME:-pm500-demo-policy}

@@ -1,3 +1,12 @@
+# -----------------------------------------------------------------------------
+# File: terraform-iot-core.tf
+# Summary: Terraform module that provisions an AWS IoT Thing, certificate, and
+#          least-privilege policy tailored for PM500 telemetry pipelines.
+# Usage:   Configure variables (thing_name, policy_name, allowed_topics,
+#          aws_region) via terraform.tfvars or CLI and run `terraform apply`.
+# Depends: Terraform >= 1.5, AWS provider ~> 5.0, and credentials with IoT Core
+#          permissions to create things, certificates, and policies.
+# -----------------------------------------------------------------------------
 terraform {
   required_version = ">= 1.5.0"
   required_providers {

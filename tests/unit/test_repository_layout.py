@@ -1,4 +1,13 @@
-"""Smoke tests for repository scaffolding."""
+"""Unit tests verifying repository scaffolding.
+
+Summary:
+    Ensures expected top-level directories and sample assets exist so
+    documentation and onboarding guides reference real paths.
+Usage:
+    Executed via pytest; no external services required.
+Depends:
+    Python 3.10+ and pytest runtime provided by the project tooling.
+"""
 
 from pathlib import Path
 

@@ -1,3 +1,11 @@
+# -----------------------------------------------------------------------------
+# File: docker-compose.yml
+# Summary: Single-node InfluxDB 2.x stack for local PM500 telemetry ingestion.
+# Usage:   Run `docker compose up -d` in src/infrastructure/influxdb after
+#          configuring environment variables (.env or shell exports).
+# Depends: Docker Engine with compose plugin, local ports 8086 available, and
+#          bootstrap credentials matching DOCKER_INFLUXDB_INIT_* variables.
+# -----------------------------------------------------------------------------
 version: "3.8"
 
 services:
