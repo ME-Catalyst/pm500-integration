@@ -18,7 +18,7 @@ jobs:
       - name: Ensure documentation files exist
         run: |
           set -euo pipefail
-          files=(ROADMAP.md ARCHITECTURE.md USER_SETUP.md DEVELOPER_APIS.md TROUBLESHOOTING.md CHANGELOG.md)
+          files=(ROADMAP.md ARCHITECTURE.md docs/user/install_guide.md DEVELOPER_REFERENCE.md TROUBLESHOOTING.md CHANGELOG.md)
           for file in "${files[@]}"; do
             if [ ! -s "$file" ]; then
               echo "::error file=$file::Key documentation file missing or empty."
@@ -51,7 +51,7 @@ jobs:
           set -euo pipefail
           previous_tag='${{ steps.previous.outputs.previous }}'
           current_tag='${{ github.event.release.tag_name }}'
-          files=(ROADMAP.md ARCHITECTURE.md USER_SETUP.md DEVELOPER_APIS.md TROUBLESHOOTING.md CHANGELOG.md README.md)
+          files=(ROADMAP.md ARCHITECTURE.md docs/user/install_guide.md DEVELOPER_REFERENCE.md TROUBLESHOOTING.md CHANGELOG.md README.md)
           changed=$(git diff --name-only "$previous_tag" "$current_tag" -- "${files[@]}" || true)
           if [ -z "$changed" ]; then
             echo "::error::No updates to key documentation files between $previous_tag and $current_tag. Update documentation before publishing the release."
@@ -68,7 +68,7 @@ jobs:
           tag='${{ github.event.release.tag_name }}'
           mkdir -p dist
           archive="dist/pm500-integration-docs-${tag}.tar.gz"
-          tar -czf "$archive" README.md ROADMAP.md ARCHITECTURE.md USER_SETUP.md DEVELOPER_APIS.md TROUBLESHOOTING.md CHANGELOG.md
+          tar -czf "$archive" README.md ROADMAP.md ARCHITECTURE.md docs/user/install_guide.md DEVELOPER_REFERENCE.md TROUBLESHOOTING.md CHANGELOG.md
           echo "archive=$archive" >> "$GITHUB_OUTPUT"
 
       - name: Attach documentation bundle to release

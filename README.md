@@ -1,90 +1,29 @@
 # PowerMonitor 500 IIoT Integration Concept
 
-## Concept Summary
-This repository explores an industrial IoT integration pattern for the Allen-Bradley PowerMonitor 500 energy meter. The integration concept envisions collecting power and energy data from the device over industrial communication protocols, translating it into IT-friendly payloads, and orchestrating analytics and visualization flows using modern automation tools.
+Industrial IoT reference architecture for collecting PowerMonitor 500 telemetry, normalizing it at the edge, and forwarding it to enterprise analytics platforms.
 
-![PowerMonitor 500 integration architecture showing device, edge, cloud, and consumer layers](docs/architecture-diagram.svg)
-
-### Architecture at a Glance
-The architecture illustrates how telemetry leaves the PowerMonitor 500, is normalized at the edge, and becomes consumable for cloud analytics and enterprise applications. Device-layer CIP or Modbus telemetry is collected by industrial gateway runtimes that host Node-RED or CODESYS services. These edge services expose a local historian cache, enforce Sparkplug B schemas, and publish MQTT streams through an edge broker. Secure MQTT/TLS links deliver the normalized payloads into AWS IoT Core ingestion services, where rule engines forward data to analytics and storage tiers such as data lakes or time-series databases. Cloud-native security services manage certificate lifecycles, identity policies, and monitoring hooks. Downstream consumers—visual dashboards, enterprise systems, and automated runbooks—subscribe to curated topics or APIs to drive operational insights, billing reconciliations, and incident response automation.
-
-## Current Repository State
-- **Edge application samples:** Reference Node-RED flows for listen-only EtherNet/IP polling with hand-offs to InfluxDB and MQTT live under [`src/node-red/flows/`](src/node-red/flows/).
-- **Data services foundation:** [`src/infrastructure/influxdb/`](src/infrastructure/influxdb/) contains a Docker Compose stack for InfluxDB OSS v2 plus bootstrap guidance.
-- **Cloud integration starter kit:** [`src/cloud/aws-iot/`](src/cloud/aws-iot/) provides Terraform, CloudFormation, and CLI snippets for provisioning AWS IoT Core, along with TLS client checklists.
-- **Operations and architecture documentation:** The `docs/` tree captures device interface details, telemetry pipeline design, polling guidelines, and Sparkplug B conventions for downstream consumers.
-- **Sample assets:** [`examples/`](examples/) packages example telemetry payloads and configuration templates referenced throughout the documentation.
-- **Test scaffolding:** [`tests/`](tests/) introduces pytest smoke checks and placeholders for upcoming integration and flow validation suites.
-- **Implementation status:** No production firmware or PLC project files are stored in this repository—artifacts focus on lab validation, planning, and infrastructure templates.
-
-## Roadmap Snapshot
-The program roadmap is tracked in [`docs/roadmap.md`](docs/roadmap.md). Highlights as of this update:
-
-| Phase | Status | Evidence |
-| --- | --- | --- |
-| Foundational documentation and patterns | ✅ Complete | Core reference guides covering device interfaces, polling limits, and telemetry topology are published under `docs/`. |
-| Edge data acquisition prototypes | ✅ Complete | Node-RED sample flows demonstrate listen-only polling and export patterns. |
-| Data persistence and visualization enablement | 🟡 In progress | InfluxDB stack is provisioned; Grafana wiring and alert definitions remain open work. |
-| Cloud and enterprise integration | 🟡 In progress | AWS IoT provisioning assets are ready; data modeling and CI/CD automation still pending. |
-| Production hardening and runbooks | 🔜 Planned | Operational readiness reviews and change-management workflows still need to be authored after pilot validation. |
-
-## High-Level Objectives
-- Validate communication paths for the PowerMonitor 500 across EtherNet/IP listen-only sessions and Modbus TCP diagnostics.
-- Prototype data acquisition, transformation, and visualization pipelines using Node-RED, Telegraf, and InfluxDB, with optional Sparkplug B emission for MQTT consumers.
-- Evaluate PLC-side orchestration options, such as CODESYS, for coordinating control logic and data exchange without disrupting existing programs.
-- Document deployment considerations, connectivity prerequisites, and security assumptions for future implementation across both OT and IT environments.
-- Prepare cloud readiness assets (AWS IoT Core provisioning, certificate handling) to streamline enterprise integration once edge telemetry is proven.
+## Quickstart
+1. Review the lab prerequisites in [`USER_MANUAL.md`](USER_MANUAL.md).
+2. Deploy the edge services by following the installation steps in [`docs/user/install_guide.md`](docs/user/install_guide.md).
+3. Import the Node-RED flows under [`src/node-red/flows/`](src/node-red/flows/) and validate historian writes with the demo scripts in [`docs/developer/examples/`](docs/developer/examples/).
+4. Consult [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md) if telemetry does not appear downstream.
 
 ## Documentation Map
-- [`ROADMAP.md`](ROADMAP.md) – Program milestones, decision log, and review cadence across foundational, hardening, and operation
-al phases.
-- [`ARCHITECTURE.md`](ARCHITECTURE.md) – Narrative of field, edge, platform, and cloud layers with security and extensibility gu
-idance.
-- [`USER_SETUP.md`](USER_SETUP.md) – Step-by-step lab setup checklist for edge services, flows, and optional cloud integration.
-- [`DEVELOPER_APIS.md`](DEVELOPER_APIS.md) – Contracts for Node-RED flows, IaC modules, and cloud data access patterns.
-- [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md) – Issue diagnostics organized by device, edge, historian, cloud, and operations doma
-ins.
-- [`CHANGELOG.md`](CHANGELOG.md) – Release-quality history summarizing added features, changes, and fixes.
-- [`docs/roadmap.md`](docs/roadmap.md) – Program phases, status indicators, and immediate next steps.
-- [`docs/device-interface.md`](docs/device-interface.md) – PowerMonitor 500 assemblies, heartbeat behavior, and configuration constraints.
-- [`docs/polling-guidelines.md`](docs/polling-guidelines.md) – Recommended connection strategies to avoid exhausting PLC CIP resources.
-- [`docs/telemetry-pipeline.md`](docs/telemetry-pipeline.md) – Edge-to-historian data flow patterns for Node-RED, CODESYS, Telegraf, and InfluxDB.
-- [`docs/sparkplug-b.md`](docs/sparkplug-b.md) – Sparkplug B topic, template, and encoding expectations for MQTT consumers.
-- [`docs/operations/playbooks.md`](docs/operations/playbooks.md) – Runbooks for subscription validation, heartbeat monitoring, and troubleshooting.
+- [`ARCHITECTURE.md`](ARCHITECTURE.md) – System structure, data flows, and dependencies.
+- [`ROADMAP.md`](ROADMAP.md) – Milestones and upcoming releases.
+- [`USER_MANUAL.md`](USER_MANUAL.md) – Installation, setup, and configuration entry points.
+- [`DEVELOPER_REFERENCE.md`](DEVELOPER_REFERENCE.md) – Flow contracts, infrastructure APIs, and messaging conventions.
+- [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md) – Quick links to recovery and diagnostics procedures.
+- [`CHANGELOG.md`](CHANGELOG.md) – Versioned history of repository updates.
 
-## Quality Checks
+Supplemental materials live under [`docs/`](docs/) and are organized by architecture, user guidance, developer references, troubleshooting resources, and visuals.
 
-Automated validation helps keep infrastructure templates and flow exports consistent. Install the developer tooling and run the
-checks locally before opening a pull request:
-
-```bash
-pip install -r requirements-dev.txt
-```
-
-- **Automated tests:** `pytest` exercises the flow and infrastructure guards shipped under [`tests/`](tests/).
-- **YAML linting:** `yamllint src tests .github/workflows` enforces consistent formatting for Compose stacks and CI assets.
-- **JSON schema validation:** `check-jsonschema --schemafile tests/schemas/node_red_flow.schema.json src/node-red/flows/*.json`
-  ensures Node-RED exports retain expected metadata.
-- **Terraform validation:** From [`src/cloud/aws-iot/`](src/cloud/aws-iot/), run `terraform fmt -check` and then
-  `terraform init -backend=false && terraform validate` to confirm the AWS IoT module is syntactically sound.
-
-## Reference Resources
-- PowerMonitor 500 product information: [Rockwell Automation PowerMonitor 500](https://www.rockwellautomation.com/en-us/products/details.powermonitor-500.html)
-- EtherNet/IP protocol overview: [ODVA EtherNet/IP](https://www.odva.org/technology-standards/ethernet-ip/)
-- Modbus TCP protocol specification: [Modbus Organization Resources](https://modbus.org/specs.php)
-- Node-RED automation platform: [Node-RED](https://nodered.org/)
-- CODESYS engineering platform: [CODESYS](https://www.codesys.com/)
-
-## Status Note
-The integration concept remains exploratory and will evolve as hardware validation, stakeholder feedback, and security reviews identify additional requirements. Documentation updates accompany each roadmap checkpoint to keep the repository aligned with the latest lab findings.
-
-## Documentation Language
-- All repository content follows **U.S. English** spelling conventions (for example, "color" rather than "colour") to keep terminology consistent across engineering and operations teams.
+## Visuals
+- [System overview diagram](docs/architecture/diagrams/system_overview.svg)
+- [Telemetry data flow](docs/visuals/diagrams/telemetry_data_flow.svg)
+- [Integration sequence](docs/visuals/diagrams/integration_sequence.svg)
 
 ## License
-- This project is distributed under the [MIT License](LICENSE.md).
+This project is distributed under the [MIT License](LICENSE.md).
 
-## Recent Updates
-- [`docs/roadmap.md`](docs/roadmap.md) consolidates the phase breakdown, status indicators, and immediate next actions.
-- [`src/node-red/flows/`](src/node-red/flows/) now includes paired MQTT and InfluxDB export examples with listen-only polling defaults.
-- [`src/infrastructure/influxdb/`](src/infrastructure/influxdb/) documents the Docker Compose stack and credential bootstrap steps for InfluxDB OSS v2.
+> **No Warranty or Liability** – Provided “as-is,” without warranty of any kind.

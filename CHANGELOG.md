@@ -4,14 +4,15 @@ All notable changes to this repository will be documented in this file following
 
 ## [Unreleased]
 ### Added
-- Roadmap, architecture, user setup, developer API, and troubleshooting guides promoted to repository root for quick reference.
-- Release workflow automation introduced to bundle and verify documentation during tagged releases.
+- `/docs/` reorganized to include architecture, user, developer, troubleshooting, and visuals subdirectories with module and diagnostic references.
+- Demo query script under `docs/developer/examples/demo_scripts/` to validate historian connectivity.
 
 ### Changed
-- README cross-links expanded to highlight newly added documentation collections.
+- Root documentation refreshed (`README.md`, `ARCHITECTURE.md`, `ROADMAP.md`, `USER_MANUAL.md`, `DEVELOPER_REFERENCE.md`, `TROUBLESHOOTING.md`) to align with the new structure and link targets.
+- Advanced usage, configuration, and recovery content redistributed across `/docs/user/` and `/docs/troubleshooting/`.
 
 ### Fixed
-- N/A
+- Broken diagram paths resolved after restructuring documentation assets.
 
 ## [0.1.0] - 2024-04-01
 ### Added
@@ -24,4 +25,3 @@ All notable changes to this repository will be documented in this file following
 
 ### Fixed
 - Clarified polling guidelines regarding connection ownership limits.
-

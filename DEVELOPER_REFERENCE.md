@@ -1,9 +1,6 @@
-# Developer Integration APIs
+# Developer Reference
 
-This reference outlines the primary interfaces developers can use to extend or consume the PowerMonitor 500 integration concep
-
-t. Interfaces are grouped by system boundary, including the data pipeline, infrastructure automation, and cloud integration lay
-ers.
+This guide summarizes the primary integration points for extending or consuming the PowerMonitor 500 edge stack. Use it alongside the examples in [`docs/developer/`](docs/developer/) when building new automation or validating changes.
 
 ## Node-RED Flow Contracts
 
@@ -25,16 +22,13 @@ ers.
   ```
 - **Extension guidance:** Add or remove metrics by editing the `function` node labeled *Format Sparkplug Payload*.
 - **Authentication:** MQTT broker credentials defined in `src/node-red/.env` under `BROKER_USERNAME` and `BROKER_PASSWORD`.
+- **Specification reference:** [`docs/developer/internal_apis.md`](docs/developer/internal_apis.md)
 
 ### InfluxDB Line Protocol Writer
 - **Flow file:** `src/node-red/flows/assembly-to-influx.json`
 - **Node:** *Format Influx Body*
-- **Output:** Writes measurement `powermonitor_500` with tags `site`, `asset`, `phase`, `breaker`, and numeric fields for energ
-
-y metrics (kWh, kW, kVAR, kVA, voltage, current, power factor).
-- **Extension guidance:** Modify the measurement or tag sets within the function node; ensure new fields exist in Grafana dashb
-
-boards before deploying to production.
+- **Output:** Writes measurement `powermonitor_500` with tags `site`, `asset`, `phase`, `breaker`, and numeric fields for energy metrics (kWh, kW, kVAR, kVA, voltage, current, power factor).
+- **Extension guidance:** Modify the measurement or tag sets within the function node; ensure new fields exist in Grafana dashboards before deploying to production.
 - **Authentication:** Uses InfluxDB token stored in `src/node-red/.env` as `INFLUXDB_TOKEN`.
 
 ## Infrastructure-as-Code Interfaces
@@ -66,13 +60,16 @@ boards before deploying to production.
 - Recommended client libraries: Eclipse Paho (Python/Java), AWS IoT Device SDK (Node.js/Python), or gmqtt (async Python).
 
 ### AWS IoT Rule Outputs
-- **Kinesis Data Streams:** Records contain the JSON payload from the Node-RED transformation stage. Consumer apps can use AWS K
-inesis SDKs or Managed Service for Apache Flink.
+- **Kinesis Data Streams:** Records contain the JSON payload from the Node-RED transformation stage. Consumer apps can use AWS Kinesis SDKs or Managed Service for Apache Flink.
 - **S3 Archive:** Optional delivery collects gzip-compressed JSON objects partitioned by `site/year/month/day`.
 - **EventBridge:** Extend Terraform to route events into EventBridge bus for integration with ticketing or automation workflows.
 
-## Contribution Guidelines
-- Update `DEVELOPER_APIS.md` whenever new flow nodes, Terraform modules, or cloud delivery targets are introduced.
+## Examples and Diagnostics
+- Sample configuration comparisons: [`docs/developer/examples/sample_configs/listener_comparison.md`](docs/developer/examples/sample_configs/listener_comparison.md)
+- Demo scripts (e.g., Influx queries): [`docs/developer/examples/demo_scripts/`](docs/developer/examples/demo_scripts/)
+- Style and contribution guidelines: [`docs/developer/conventions.md`](docs/developer/conventions.md)
+
+## Contribution Expectations
+- Update this reference whenever new flow nodes, Terraform modules, or cloud delivery targets are introduced.
 - Include example payloads or CLI snippets to accelerate downstream integration.
 - Keep authentication and secret handling guidance high-level; never commit real credentials.
-
