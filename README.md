@@ -3,6 +3,11 @@
 ## Concept Summary
 This repository explores an industrial IoT integration pattern for the Allen-Bradley PowerMonitor 500 energy meter. The integration concept envisions collecting power and energy data from the device over industrial communication protocols, translating it into IT-friendly payloads, and orchestrating analytics and visualization flows using modern automation tools.
 
+![PowerMonitor 500 integration architecture showing device, edge, cloud, and consumer layers](docs/architecture-diagram.svg)
+
+### Architecture at a Glance
+The architecture illustrates how telemetry leaves the PowerMonitor 500, is normalized at the edge, and becomes consumable for cloud analytics and enterprise applications. Device-layer CIP or Modbus telemetry is collected by industrial gateway runtimes that host Node-RED or CODESYS services. These edge services expose a local historian cache, enforce Sparkplug B schemas, and publish MQTT streams through an edge broker. Secure MQTT/TLS links deliver the normalized payloads into AWS IoT Core ingestion services, where rule engines forward data to analytics and storage tiers such as data lakes or time-series databases. Cloud-native security services manage certificate lifecycles, identity policies, and monitoring hooks. Downstream consumers—visual dashboards, enterprise systems, and automated runbooks—subscribe to curated topics or APIs to drive operational insights, billing reconciliations, and incident response automation.
+
 ## Current Repository State
 - **Edge application samples:** Reference Node-RED flows for listen-only EtherNet/IP polling with hand-offs to InfluxDB and MQTT live under [`node-red/flows/`](node-red/flows/).
 - **Data services foundation:** [`infra/influxdb/`](infra/influxdb/) contains a Docker Compose stack for InfluxDB OSS v2 plus bootstrap guidance.
