@@ -5,8 +5,8 @@ This playbook consolidates runbook procedures for monitoring EtherNet/IP listene
 ## Repository Integration Points
 
 - Review the roadmap in [../roadmap.md](../roadmap.md) before runbook updates to confirm which phases are production supported.
-- Node-RED flows in [../../node-red/flows/](../../node-red/flows/) provide the polling topologies referenced by the listen-only validation steps below.
-- InfluxDB deployment notes under [../../infra/influxdb/](../../infra/influxdb/) describe the telemetry targets used in heartbeat monitoring procedures.
+- Node-RED flows in [../../src/node-red/flows/](../../src/node-red/flows/) provide the polling topologies referenced by the listen-only validation steps below.
+- InfluxDB deployment notes under [../../src/infrastructure/influxdb/](../../src/infrastructure/influxdb/) describe the telemetry targets used in heartbeat monitoring procedures.
 
 ## Validating Listen-Only Subscriptions
 

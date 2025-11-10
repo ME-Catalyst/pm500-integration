@@ -8,7 +8,7 @@ ers.
 ## Node-RED Flow Contracts
 
 ### MQTT Sparkplug B Publisher
-- **Flow file:** `node-red/flows/listen-only-mqtt-influx.json`
+- **Flow file:** `src/node-red/flows/assembly-to-mqtt.json`
 - **Trigger:** Periodic CIP polling (default 1s) from the EtherNet/IP input assembly.
 - **Payload schema:**
   ```json
@@ -24,10 +24,10 @@ ers.
   }
   ```
 - **Extension guidance:** Add or remove metrics by editing the `function` node labeled *Format Sparkplug Payload*.
-- **Authentication:** MQTT broker credentials defined in `node-red/.env` under `BROKER_USERNAME` and `BROKER_PASSWORD`.
+- **Authentication:** MQTT broker credentials defined in `src/node-red/.env` under `BROKER_USERNAME` and `BROKER_PASSWORD`.
 
 ### InfluxDB Line Protocol Writer
-- **Flow file:** `node-red/flows/listen-only-mqtt-influx.json`
+- **Flow file:** `src/node-red/flows/assembly-to-influx.json`
 - **Node:** *Format Influx Body*
 - **Output:** Writes measurement `powermonitor_500` with tags `site`, `asset`, `phase`, `breaker`, and numeric fields for energ
 
@@ -35,19 +35,19 @@ y metrics (kWh, kW, kVAR, kVA, voltage, current, power factor).
 - **Extension guidance:** Modify the measurement or tag sets within the function node; ensure new fields exist in Grafana dashb
 
 boards before deploying to production.
-- **Authentication:** Uses InfluxDB token stored in `node-red/.env` as `INFLUXDB_TOKEN`.
+- **Authentication:** Uses InfluxDB token stored in `src/node-red/.env` as `INFLUXDB_TOKEN`.
 
 ## Infrastructure-as-Code Interfaces
 
 ### InfluxDB Stack (Docker Compose)
-- **File:** `infra/influxdb/docker-compose.yml`
+- **File:** `src/infrastructure/influxdb/docker-compose.yml`
 - **Services:** `influxdb`, `telegraf` (optional), and persistent volume definitions.
 - **Customization hooks:**
-  - Extend environment variables in `infra/influxdb/.env` for backup targets or custom bucket names.
+  - Extend environment variables in `src/infrastructure/influxdb/.env` for backup targets or custom bucket names.
   - Add additional services (Grafana, Kapacitor) by extending the compose file and referencing shared networks.
 
 ### AWS IoT Provisioning (Terraform)
-- **Directory:** `cloud/aws-iot/terraform`
+- **Directory:** `src/cloud/aws-iot/terraform`
 - **Primary modules:**
   - `iot_core`: Creates IoT thing type, thing group, and provisioning templates.
   - `data_routes`: Defines IoT rules, Kinesis streams, and IAM roles.
