@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">PowerMonitor 500 Integration Architecture</title>
+  <desc id="desc">Diagram showing data flow from the PowerMonitor 500 device through edge gateway services into cloud analytics and enterprise consumers.</desc>
+  <defs>
+    <linearGradient id="deviceGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1f78b4" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#1f78b4" stop-opacity="0.6" />
+    </linearGradient>
+    <linearGradient id="edgeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#33a02c" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#33a02c" stop-opacity="0.6" />
+    </linearGradient>
+    <linearGradient id="cloudGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff7f00" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#ff7f00" stop-opacity="0.6" />
+    </linearGradient>
+    <linearGradient id="consumerGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6a3d9a" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#6a3d9a" stop-opacity="0.6" />
+    </linearGradient>
+    <style>
+      .layer-title { font: 700 20px 'Helvetica Neue', Arial, sans-serif; fill: #0b1f33; }
+      .node-title { font: 600 18px 'Helvetica Neue', Arial, sans-serif; fill: #0b1f33; }
+      .node-text { font: 400 15px 'Helvetica Neue', Arial, sans-serif; fill: #0b1f33; }
+      .arrow { stroke: #0b1f33; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead); }
+      .arrow-label { font: 500 14px 'Helvetica Neue', Arial, sans-serif; fill: #0b1f33; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0b1f33" />
+    </marker>
+  </defs>
+
+  <rect x="40" y="40" width="180" height="460" fill="#e4edf6" rx="12" />
+  <text x="130" y="70" text-anchor="middle" class="layer-title">Device Layer</text>
+  <rect x="60" y="100" width="140" height="120" fill="url(#deviceGradient)" rx="10" />
+  <text x="130" y="130" text-anchor="middle" class="node-title">PowerMonitor 500</text>
+  <text x="130" y="160" text-anchor="middle" class="node-text">CIP | Modbus</text>
+  <text x="130" y="185" text-anchor="middle" class="node-text">Voltage, Current,</text>
+  <text x="130" y="205" text-anchor="middle" class="node-text">Energy KPIs</text>
+
+  <rect x="260" y="40" width="220" height="460" fill="#e5f5e0" rx="12" />
+  <text x="370" y="70" text-anchor="middle" class="layer-title">Edge Layer</text>
+  <rect x="280" y="100" width="180" height="110" fill="url(#edgeGradient)" rx="10" />
+  <text x="370" y="130" text-anchor="middle" class="node-title">Industrial Gateway</text>
+  <text x="370" y="160" text-anchor="middle" class="node-text">EtherNet/IP Collector</text>
+  <text x="370" y="185" text-anchor="middle" class="node-text">Node-RED | CODESYS</text>
+
+  <rect x="280" y="240" width="180" height="110" fill="url(#edgeGradient)" rx="10" />
+  <text x="370" y="270" text-anchor="middle" class="node-title">Edge Data Broker</text>
+  <text x="370" y="300" text-anchor="middle" class="node-text">MQTT / Sparkplug B</text>
+  <text x="370" y="325" text-anchor="middle" class="node-text">Local Historian Cache</text>
+
+  <rect x="520" y="40" width="220" height="460" fill="#fff2df" rx="12" />
+  <text x="630" y="70" text-anchor="middle" class="layer-title">Cloud Layer</text>
+  <rect x="540" y="100" width="180" height="110" fill="url(#cloudGradient)" rx="10" />
+  <text x="630" y="130" text-anchor="middle" class="node-title">Ingestion Services</text>
+  <text x="630" y="160" text-anchor="middle" class="node-text">AWS IoT Core</text>
+  <text x="630" y="185" text-anchor="middle" class="node-text">MQTT Topics & Rules</text>
+
+  <rect x="540" y="240" width="180" height="110" fill="url(#cloudGradient)" rx="10" />
+  <text x="630" y="270" text-anchor="middle" class="node-title">Analytics & Storage</text>
+  <text x="630" y="300" text-anchor="middle" class="node-text">Data Lake | InfluxDB</text>
+  <text x="630" y="325" text-anchor="middle" class="node-text">Stream Processing</text>
+
+  <rect x="540" y="380" width="180" height="90" fill="url(#cloudGradient)" rx="10" />
+  <text x="630" y="410" text-anchor="middle" class="node-title">Security Services</text>
+  <text x="630" y="435" text-anchor="middle" class="node-text">IAM, PKI, Monitoring</text>
+
+  <rect x="760" y="40" width="160" height="460" fill="#ede7f6" rx="12" />
+  <text x="840" y="70" text-anchor="middle" class="layer-title">Consumers</text>
+  <rect x="780" y="100" width="120" height="110" fill="url(#consumerGradient)" rx="10" />
+  <text x="840" y="130" text-anchor="middle" class="node-title">Dashboards</text>
+  <text x="840" y="160" text-anchor="middle" class="node-text">Grafana | PowerBI</text>
+
+  <rect x="780" y="240" width="120" height="110" fill="url(#consumerGradient)" rx="10" />
+  <text x="840" y="270" text-anchor="middle" class="node-title">Enterprise Apps</text>
+  <text x="840" y="300" text-anchor="middle" class="node-text">CMMS, ERP, Billing</text>
+
+  <rect x="780" y="380" width="120" height="90" fill="url(#consumerGradient)" rx="10" />
+  <text x="840" y="410" text-anchor="middle" class="node-title">Alerts & Automation</text>
+  <text x="840" y="435" text-anchor="middle" class="node-text">SRE & OT Runbooks</text>
+
+  <path d="M200 160 C240 160 240 155 280 155" class="arrow" />
+  <text x="240" y="145" class="arrow-label">Real-time telemetry</text>
+
+  <path d="M200 200 C240 200 240 230 280 230" class="arrow" />
+  <text x="245" y="220" class="arrow-label">Event snapshots</text>
+
+  <path d="M460 155 C500 155 500 155 540 155" class="arrow" />
+  <text x="500" y="145" class="arrow-label">MQTT/TLS</text>
+
+  <path d="M460 295 C500 295 500 295 540 295" class="arrow" />
+  <text x="500" y="285" class="arrow-label">Batch sync</text>
+
+  <path d="M460 430 C500 430 500 435 540 435" class="arrow" />
+  <text x="500" y="420" class="arrow-label">Certificates & policy</text>
+
+  <path d="M720 155 C760 155 760 155 780 155" class="arrow" />
+  <text x="750" y="145" class="arrow-label">Dashboards</text>
+
+  <path d="M720 295 C760 295 760 295 780 295" class="arrow" />
+  <text x="750" y="285" class="arrow-label">APIs & Webhooks</text>
+
+  <path d="M720 425 C760 425 760 425 780 425" class="arrow" />
+  <text x="750" y="415" class="arrow-label">Ops notifications</text>
+</svg>
