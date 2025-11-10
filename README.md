@@ -52,6 +52,22 @@ ins.
 - [`docs/sparkplug-b.md`](docs/sparkplug-b.md) – Sparkplug B topic, template, and encoding expectations for MQTT consumers.
 - [`docs/operations/playbooks.md`](docs/operations/playbooks.md) – Runbooks for subscription validation, heartbeat monitoring, and troubleshooting.
 
+## Quality Checks
+
+Automated validation helps keep infrastructure templates and flow exports consistent. Install the developer tooling and run the
+checks locally before opening a pull request:
+
+```bash
+pip install -r requirements-dev.txt
+```
+
+- **Automated tests:** `pytest` exercises the flow and infrastructure guards shipped under [`tests/`](tests/).
+- **YAML linting:** `yamllint src tests .github/workflows` enforces consistent formatting for Compose stacks and CI assets.
+- **JSON schema validation:** `check-jsonschema --schemafile tests/schemas/node_red_flow.schema.json src/node-red/flows/*.json`
+  ensures Node-RED exports retain expected metadata.
+- **Terraform validation:** From [`src/cloud/aws-iot/`](src/cloud/aws-iot/), run `terraform fmt -check` and then
+  `terraform init -backend=false && terraform validate` to confirm the AWS IoT module is syntactically sound.
+
 ## Reference Resources
 - PowerMonitor 500 product information: [Rockwell Automation PowerMonitor 500](https://www.rockwellautomation.com/en-us/products/details.powermonitor-500.html)
 - EtherNet/IP protocol overview: [ODVA EtherNet/IP](https://www.odva.org/technology-standards/ethernet-ip/)

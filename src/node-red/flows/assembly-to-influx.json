@@ -52,7 +52,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "info": "Constructs the message envelope expected by node-red-contrib-cip-ethernet-ip for a single attribute read."
+        "info": "Constructs the message envelope expected by node-red-contrib-cip-ethernet-ip for a single attribute read.",
         "x": 360,
         "y": 120,
         "wires": [
@@ -90,7 +90,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "info": "Parses the binary response buffer and shapes the payload for the InfluxDB write node using measurement `pm500_assembly`."
+        "info": "Parses the binary response buffer and shapes the payload for the InfluxDB write node using measurement `pm500_assembly`.",
         "x": 820,
         "y": 120,
         "wires": [
