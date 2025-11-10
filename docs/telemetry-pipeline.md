@@ -8,9 +8,9 @@ This guide describes how the PM500 edge stack can forward measurements from PLC 
 
 ## Repository Assets
 
-- Node-RED reference flows in [../node-red/flows/](../node-red/flows/) implement the polling, normalization, and export patterns described in this guide.
-- The InfluxDB OSS v2 stack under [../infra/influxdb/](../infra/influxdb/) provides the target data store for the examples below and can be paired with Telegraf.
-- AWS IoT Core provisioning snippets in [../cloud/aws-iot/](../cloud/aws-iot/) supply MQTT endpoints for the Sparkplug B publishing options discussed in later sections.
+- Node-RED reference flows in [../src/node-red/flows/](../src/node-red/flows/) implement the polling, normalization, and export patterns described in this guide.
+- The InfluxDB OSS v2 stack under [../src/infrastructure/influxdb/](../src/infrastructure/influxdb/) provides the target data store for the examples below and can be paired with Telegraf.
+- AWS IoT Core provisioning snippets in [../src/cloud/aws-iot/](../src/cloud/aws-iot/) supply MQTT endpoints for the Sparkplug B publishing options discussed in later sections.
 
 ## Node-RED write configuration
 

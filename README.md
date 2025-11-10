@@ -9,10 +9,12 @@ This repository explores an industrial IoT integration pattern for the Allen-Bra
 The architecture illustrates how telemetry leaves the PowerMonitor 500, is normalized at the edge, and becomes consumable for cloud analytics and enterprise applications. Device-layer CIP or Modbus telemetry is collected by industrial gateway runtimes that host Node-RED or CODESYS services. These edge services expose a local historian cache, enforce Sparkplug B schemas, and publish MQTT streams through an edge broker. Secure MQTT/TLS links deliver the normalized payloads into AWS IoT Core ingestion services, where rule engines forward data to analytics and storage tiers such as data lakes or time-series databases. Cloud-native security services manage certificate lifecycles, identity policies, and monitoring hooks. Downstream consumers—visual dashboards, enterprise systems, and automated runbooks—subscribe to curated topics or APIs to drive operational insights, billing reconciliations, and incident response automation.
 
 ## Current Repository State
-- **Edge application samples:** Reference Node-RED flows for listen-only EtherNet/IP polling with hand-offs to InfluxDB and MQTT live under [`node-red/flows/`](node-red/flows/).
-- **Data services foundation:** [`infra/influxdb/`](infra/influxdb/) contains a Docker Compose stack for InfluxDB OSS v2 plus bootstrap guidance.
-- **Cloud integration starter kit:** [`cloud/aws-iot/`](cloud/aws-iot/) provides Terraform, CloudFormation, and CLI snippets for provisioning AWS IoT Core, along with TLS client checklists.
+- **Edge application samples:** Reference Node-RED flows for listen-only EtherNet/IP polling with hand-offs to InfluxDB and MQTT live under [`src/node-red/flows/`](src/node-red/flows/).
+- **Data services foundation:** [`src/infrastructure/influxdb/`](src/infrastructure/influxdb/) contains a Docker Compose stack for InfluxDB OSS v2 plus bootstrap guidance.
+- **Cloud integration starter kit:** [`src/cloud/aws-iot/`](src/cloud/aws-iot/) provides Terraform, CloudFormation, and CLI snippets for provisioning AWS IoT Core, along with TLS client checklists.
 - **Operations and architecture documentation:** The `docs/` tree captures device interface details, telemetry pipeline design, polling guidelines, and Sparkplug B conventions for downstream consumers.
+- **Sample assets:** [`examples/`](examples/) packages example telemetry payloads and configuration templates referenced throughout the documentation.
+- **Test scaffolding:** [`tests/`](tests/) introduces pytest smoke checks and placeholders for upcoming integration and flow validation suites.
 - **Implementation status:** No production firmware or PLC project files are stored in this repository—artifacts focus on lab validation, planning, and infrastructure templates.
 
 ## Roadmap Snapshot
@@ -68,5 +70,5 @@ The integration concept remains exploratory and will evolve as hardware validati
 
 ## Recent Updates
 - [`docs/roadmap.md`](docs/roadmap.md) consolidates the phase breakdown, status indicators, and immediate next actions.
-- [`node-red/flows/`](node-red/flows/) now includes paired MQTT and InfluxDB export examples with listen-only polling defaults.
-- [`infra/influxdb/`](infra/influxdb/) documents the Docker Compose stack and credential bootstrap steps for InfluxDB OSS v2.
+- [`src/node-red/flows/`](src/node-red/flows/) now includes paired MQTT and InfluxDB export examples with listen-only polling defaults.
+- [`src/infrastructure/influxdb/`](src/infrastructure/influxdb/) documents the Docker Compose stack and credential bootstrap steps for InfluxDB OSS v2.

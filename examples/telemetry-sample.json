@@ -1,0 +1,14 @@
+{
+  "device": "PM500-Lab",
+  "timestamp": "2024-01-15T12:00:00Z",
+  "measurements": {
+    "voltage_l1": 479.2,
+    "voltage_l2": 480.5,
+    "voltage_l3": 478.8,
+    "current_l1": 35.6,
+    "current_l2": 34.9,
+    "current_l3": 36.1,
+    "real_power_total_kw": 27.4,
+    "energy_total_kwh": 13245.7
+  }
+}

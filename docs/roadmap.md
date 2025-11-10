@@ -16,14 +16,14 @@ Status legend: ✅ Complete · 🟡 In progress · 🔜 Planned
 ## Phase 2 – Edge Data Acquisition Prototypes (Status: ✅ Complete)
 - **Scope:** Demonstrate listen-only telemetry extraction from the PM500 and publish to multiple downstream targets without disrupting PLC ownership.
 - **Delivered Assets:**
-  - Node-RED reference flows in [`node-red/flows/`](../node-red/flows/) for InfluxDB and MQTT export paths.
+  - Node-RED reference flows in [`src/node-red/flows/`](../src/node-red/flows/) for InfluxDB and MQTT export paths.
   - Telemetry pipeline patterns in [`docs/telemetry-pipeline.md`](telemetry-pipeline.md) referencing Node-RED, Telegraf, and CODESYS options.
 - **Next Actions:** Validate flows against hardware, confirm polling intervals meet production limits, and capture performance metrics for sustained load.
 
 ## Phase 3 – Data Persistence & Visualization Enablement (Status: 🟡 In Progress)
 - **Scope:** Provide a repeatable data services stack and document how to land, query, and visualize telemetry.
 - **Delivered Assets:**
-  - InfluxDB OSS v2 Docker Compose stack under [`infra/influxdb/`](../infra/influxdb/) with bootstrap instructions.
+  - InfluxDB OSS v2 Docker Compose stack under [`src/infrastructure/influxdb/`](../src/infrastructure/influxdb/) with bootstrap instructions.
   - Telemetry normalization examples that produce Influx line protocol in [`docs/telemetry-pipeline.md`](telemetry-pipeline.md).
 - **Outstanding Work:**
   - Add Grafana or Chronograf dashboards illustrating core KPIs.
@@ -33,7 +33,7 @@ Status legend: ✅ Complete · 🟡 In progress · 🔜 Planned
 ## Phase 4 – Cloud & Enterprise Integration (Status: 🟡 In Progress)
 - **Scope:** Bridge edge telemetry into enterprise analytics platforms with secure provisioning and deployment automation.
 - **Delivered Assets:**
-  - AWS IoT Core infrastructure snippets and TLS client guidance in [`cloud/aws-iot/`](../cloud/aws-iot/).
+  - AWS IoT Core infrastructure snippets and TLS client guidance in [`src/cloud/aws-iot/`](../src/cloud/aws-iot/).
   - Sparkplug B messaging guide for MQTT brokers in [`docs/sparkplug-b.md`](sparkplug-b.md).
 - **Outstanding Work:**
   - Define cloud-side data models (e.g., AWS IoT Rules, Kinesis/Firehose mappings) and CI/CD pipelines for infrastructure code.
