@@ -1,7 +1,6 @@
-# User Setup Guide
+# Lab Installation and Setup Guide
 
-This guide walks site engineers and analysts through preparing a lab environment for the PowerMonitor 500 integration concept. 
-Follow the steps sequentially to ensure a functional data path from the meter to analytics and cloud endpoints.
+This guide walks site engineers and analysts through preparing a lab environment for the PowerMonitor 500 integration concept. Follow the steps sequentially to ensure a functional data path from the meter to analytics and cloud endpoints.
 
 ## 1. Prerequisites
 - PowerMonitor 500 device with EtherNet/IP firmware enabled and reachable from the test network.
@@ -45,7 +44,7 @@ Confirm services are reachable:
 - Run `docker compose logs -f` for Node-RED to ensure no connection timeouts occur.
 - Query InfluxDB with the provided sample script:
   ```bash
-  ./docs/scripts/query_influx_example.sh
+  ./docs/developer/examples/demo_scripts/query_influx_example.sh
   ```
 
 ## 7. Optional AWS IoT Integration
@@ -67,5 +66,4 @@ Confirm services are reachable:
 ## 9. Maintenance Tips
 - Pull repository updates monthly and redeploy Docker stacks when the release notes indicate changes.
 - Backup Node-RED flows (`src/node-red/flows/*.json`) and InfluxDB volumes before performing upgrades.
-- Review `TROUBLESHOOTING.md` for remediation steps if telemetry stops reporting.
-
+- Review `TROUBLESHOOTING.md` and `/docs/troubleshooting/` for remediation steps if telemetry stops reporting.

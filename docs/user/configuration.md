@@ -1,5 +1,7 @@
 # Device Interface Overview
 
+Understand the PowerMonitor 500 assemblies and communication modes before onboarding the edge stack.
+
 ## Available Data Points
 - **Assemblies**
   - Real-time measurement Assembly 100 (used by Node-RED sample flows)
@@ -16,7 +18,7 @@
 - **Implicit Messaging** for real-time cyclic data exchange.
 - **UCMM Explicit Messaging** for on-demand parameter access and configuration.
 
-![Sequence diagram of telemetry ingestion and command handling across the device, gateway, broker, and cloud.](diagrams/integration/integration-sequence.svg)
+![Sequence diagram of telemetry ingestion and command handling across the device, gateway, broker, and cloud.](../visuals/diagrams/integration_sequence.svg)
 
 *Figure 1: The integration sequence clarifies the telemetry and command loop so interface designers know where timing and protocol translations occur.*
 
@@ -27,7 +29,6 @@
 - When operating in EtherNet/IP Listen-Only mode, periodic keep-alive traffic is required to maintain the connection.
 
 ## Related Repository Assets
-
-- Node-RED assembly polling examples in [../src/node-red/flows/](../src/node-red/flows/) read Assembly 100 Attribute 3 using listen-only EtherNet/IP connections that honor the constraints outlined above.
-- Polling guardrails in [polling-guidelines.md](polling-guidelines.md) expand on the connection ownership and interval recommendations referenced in this overview.
-- Operational validation steps in [operations/playbooks.md](operations/playbooks.md) include heartbeat monitoring routines tailored to the assemblies described here.
+- Node-RED assembly polling examples in [`src/node-red/flows/`](../../src/node-red/flows/) read Assembly 100 Attribute 3 using listen-only EtherNet/IP connections that honor the constraints outlined above.
+- Polling guardrails in [`advanced_usage.md`](advanced_usage.md) expand on connection ownership and interval recommendations referenced in this overview.
+- Recovery procedures in [`../troubleshooting/recovery.md`](../troubleshooting/recovery.md) include heartbeat monitoring routines tailored to the assemblies described here.

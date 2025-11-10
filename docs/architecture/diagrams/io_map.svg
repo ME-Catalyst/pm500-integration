@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">PowerMonitor 500 IO Map</title>
+  <desc id="desc">Logical IO relationships between field devices, edge services, and platform consumers.</desc>
+  <style>
+    text { font-family: 'DejaVu Sans', Arial, sans-serif; font-size: 18px; }
+    rect, path { stroke: #1f2933; stroke-width: 2; fill: #f4f4f4; }
+    .edge { fill: #e0f2ff; }
+    .field { fill: #e8f5e9; }
+    .platform { fill: #fff3e0; }
+    .cloud { fill: #f3e8ff; }
+    .label { font-weight: bold; }
+    .note { font-size: 16px; fill: #3d4852; }
+    marker#arrow { markerWidth: 10; markerHeight: 10; refX: 8; refY: 3; orient: auto; markerUnits: strokeWidth; }
+    marker#arrow path { fill: #1f2933; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10">
+      <path d="M 0 0 L 10 3 L 0 6 z" />
+    </marker>
+  </defs>
+  <rect class="field" x="40" y="60" width="220" height="140" rx="12" />
+  <text class="label" x="150" y="100" text-anchor="middle">Field Devices</text>
+  <text x="150" y="130" text-anchor="middle">PowerMonitor 500</text>
+  <text x="150" y="155" text-anchor="middle">EtherNet/IP Assemblies</text>
+  <text x="150" y="180" text-anchor="middle">Modbus TCP Diagnostics</text>
+
+  <rect class="edge" x="300" y="40" width="220" height="120" rx="12" />
+  <text class="label" x="410" y="80" text-anchor="middle">Acquisition</text>
+  <text x="410" y="110" text-anchor="middle">Node-RED Pollers</text>
+  <text x="410" y="135" text-anchor="middle">Listen-Only CIP Sessions</text>
+
+  <rect class="edge" x="300" y="200" width="220" height="120" rx="12" />
+  <text class="label" x="410" y="240" text-anchor="middle">Transformation</text>
+  <text x="410" y="270" text-anchor="middle">Unit Enrichment</text>
+  <text x="410" y="295" text-anchor="middle">Asset Tagging</text>
+
+  <rect class="platform" x="560" y="60" width="180" height="120" rx="12" />
+  <text class="label" x="650" y="95" text-anchor="middle">MQTT Broker</text>
+  <text x="650" y="125" text-anchor="middle">Sparkplug B Payloads</text>
+
+  <rect class="platform" x="560" y="220" width="180" height="120" rx="12" />
+  <text class="label" x="650" y="255" text-anchor="middle">InfluxDB</text>
+  <text x="650" y="285" text-anchor="middle">Line Protocol Writes</text>
+
+  <rect class="cloud" x="770" y="140" width="150" height="120" rx="12" />
+  <text class="label" x="845" y="180" text-anchor="middle">Enterprise</text>
+  <text x="845" y="205" text-anchor="middle">AWS IoT Core</text>
+  <text x="845" y="230" text-anchor="middle">Analytics &amp; Alarms</text>
+
+  <path d="M260 130 H300" marker-end="url(#arrow)" />
+  <path d="M260 150 H300" marker-end="url(#arrow)" />
+  <path d="M260 170 H300" marker-end="url(#arrow)" />
+
+  <path d="M410 160 V200" marker-end="url(#arrow)" />
+
+  <path d="M520 80 H560" marker-end="url(#arrow)" />
+  <path d="M520 260 H560" marker-end="url(#arrow)" />
+
+  <path d="M740 120 L770 170" marker-end="url(#arrow)" />
+  <path d="M740 280 L770 220" marker-end="url(#arrow)" />
+
+  <text class="note" x="480" y="360" text-anchor="middle">Telemetry fan-out feeds both MQTT consumers and historian storage.</text>
+  <text class="note" x="480" y="390" text-anchor="middle">Use this map to trace IO ownership and credential requirements.</text>
+</svg>
