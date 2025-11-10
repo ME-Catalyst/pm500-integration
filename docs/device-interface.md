@@ -2,6 +2,7 @@
 
 ## Available Data Points
 - **Assemblies**
+  - Real-time measurement Assembly 100 (used by Node-RED sample flows)
   - Input Assembly 101
   - Output Assembly 102
   - Configuration Assembly 107
@@ -20,3 +21,9 @@
 - Only a single Modbus TCP socket may be open at any given time.
 - Modbus connectivity is mutually exclusive with EtherNet/IP operation; enable only one protocol at a time.
 - When operating in EtherNet/IP Listen-Only mode, periodic keep-alive traffic is required to maintain the connection.
+
+## Related Repository Assets
+
+- Node-RED assembly polling examples in [../node-red/flows/](../node-red/flows/) read Assembly 100 Attribute 3 using listen-only EtherNet/IP connections that honor the constraints outlined above.
+- Polling guardrails in [polling-guidelines.md](polling-guidelines.md) expand on the connection ownership and interval recommendations referenced in this overview.
+- Operational validation steps in [operations/playbooks.md](operations/playbooks.md) include heartbeat monitoring routines tailored to the assemblies described here.
