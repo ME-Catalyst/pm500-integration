@@ -29,6 +29,15 @@ The program roadmap is tracked in [`docs/roadmap.md`](docs/roadmap.md). Highligh
 - Prepare cloud readiness assets (AWS IoT Core provisioning, certificate handling) to streamline enterprise integration once edge telemetry is proven.
 
 ## Documentation Map
+- [`ROADMAP.md`](ROADMAP.md) – Program milestones, decision log, and review cadence across foundational, hardening, and operation
+al phases.
+- [`ARCHITECTURE.md`](ARCHITECTURE.md) – Narrative of field, edge, platform, and cloud layers with security and extensibility gu
+idance.
+- [`USER_SETUP.md`](USER_SETUP.md) – Step-by-step lab setup checklist for edge services, flows, and optional cloud integration.
+- [`DEVELOPER_APIS.md`](DEVELOPER_APIS.md) – Contracts for Node-RED flows, IaC modules, and cloud data access patterns.
+- [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md) – Issue diagnostics organized by device, edge, historian, cloud, and operations doma
+ins.
+- [`CHANGELOG.md`](CHANGELOG.md) – Release-quality history summarizing added features, changes, and fixes.
 - [`docs/roadmap.md`](docs/roadmap.md) – Program phases, status indicators, and immediate next steps.
 - [`docs/device-interface.md`](docs/device-interface.md) – PowerMonitor 500 assemblies, heartbeat behavior, and configuration constraints.
 - [`docs/polling-guidelines.md`](docs/polling-guidelines.md) – Recommended connection strategies to avoid exhausting PLC CIP resources.

@@ -1,0 +1,81 @@
+name: Release Documentation Quality Gate
+
+on:
+  release:
+    types: [published, edited]
+
+jobs:
+  verify-and-bundle-docs:
+    name: Verify key documentation and bundle release artifact
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out release commit
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Ensure documentation files exist
+        run: |
+          set -euo pipefail
+          files=(ROADMAP.md ARCHITECTURE.md USER_SETUP.md DEVELOPER_APIS.md TROUBLESHOOTING.md CHANGELOG.md)
+          for file in "${files[@]}"; do
+            if [ ! -s "$file" ]; then
+              echo "::error file=$file::Key documentation file missing or empty."
+              exit 1
+            fi
+          done
+
+      - name: Determine previous tag
+        id: previous
+        run: |
+          set -euo pipefail
+          current="${{ github.event.release.tag_name }}"
+          if ! git rev-parse "$current" >/dev/null 2>&1; then
+            echo "No tag found for release $current; skipping previous tag check."
+            exit 0
+          fi
+          current_commit=$(git rev-list -n 1 "$current")
+          if git rev-parse "${current_commit}^" >/dev/null 2>&1; then
+            previous_tag=$(git describe --tags --abbrev=0 "${current_commit}^" 2>/dev/null || true)
+          else
+            previous_tag=""
+          fi
+          if [ -n "$previous_tag" ]; then
+            echo "previous=$previous_tag" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Require documentation updates since previous tag
+        if: steps.previous.outputs.previous != ''
+        run: |
+          set -euo pipefail
+          previous_tag='${{ steps.previous.outputs.previous }}'
+          current_tag='${{ github.event.release.tag_name }}'
+          files=(ROADMAP.md ARCHITECTURE.md USER_SETUP.md DEVELOPER_APIS.md TROUBLESHOOTING.md CHANGELOG.md README.md)
+          changed=$(git diff --name-only "$previous_tag" "$current_tag" -- "${files[@]}" || true)
+          if [ -z "$changed" ]; then
+            echo "::error::No updates to key documentation files between $previous_tag and $current_tag. Update documentation before publishing the release."
+            exit 1
+          fi
+          echo "Documentation updated in:"
+          echo "$changed"
+
+      - name: Create documentation bundle
+        id: bundle
+        if: github.event.action == 'published'
+        run: |
+          set -euo pipefail
+          tag='${{ github.event.release.tag_name }}'
+          mkdir -p dist
+          archive="dist/pm500-integration-docs-${tag}.tar.gz"
+          tar -czf "$archive" README.md ROADMAP.md ARCHITECTURE.md USER_SETUP.md DEVELOPER_APIS.md TROUBLESHOOTING.md CHANGELOG.md
+          echo "archive=$archive" >> "$GITHUB_OUTPUT"
+
+      - name: Attach documentation bundle to release
+        if: github.event.action == 'published'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ steps.bundle.outputs.archive }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
